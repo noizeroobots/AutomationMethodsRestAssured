@@ -1,9 +1,14 @@
 package ru.tinkoff.qa.simple.petshop;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import io.restassured.RestAssured;
+import io.restassured.filter.log.RequestLoggingFilter;
+import io.restassured.filter.log.ResponseLoggingFilter;
+import io.restassured.http.ContentType;
 import io.restassured.internal.common.assertion.Assertion;
 import n.Category;
 import n.PetPost;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -11,7 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class JsonSerialisation {
 
     @Test
-    public void test(){
+    public void test() {
         PetPost myPet = new PetPost();
         myPet.setId(1);
         myPet.setName("Kuzya");
@@ -19,24 +24,16 @@ public class JsonSerialisation {
         myPet.setCategory(category);
         myPet.setStatus("available");
 
-        /* преобразование из JSON в объект */
-        ObjectMapper objectMapper = new ObjectMapper();
-        String jsonPet = null;
-        try {
-            jsonPet = objectMapper.writeValueAsString(myPet);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        System.out.println(jsonPet);
-
-        /* преобразование из объекта в JSON */
-        PetPost petAfterJson = null;
-        try {
-            petAfterJson = objectMapper.readValue(jsonPet, PetPost.class);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        Assertions.assertEquals(myPet, petAfterJson);
+        RestAssured.given()
+                .contentType(ContentType.JSON)
+                .filter(new RequestLoggingFilter())
+                .filter(new ResponseLoggingFilter())
+                .body(myPet)
+                .post("https://petstore.swagger.io/v2/pet")
+                .then()
+                .statusCode(200)
+                .extract()
+                .as(PetPost.class);
 
     }
 }
