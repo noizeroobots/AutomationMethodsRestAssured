@@ -1,6 +1,7 @@
 package n;
 
 import java.util.List;
+import java.util.Objects;
 
 public class PetPost{
 	private List<String> photoUrls;
@@ -56,5 +57,18 @@ public class PetPost{
 
 	public String getStatus(){
 		return status;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof PetPost)) return false;
+		PetPost petPost = (PetPost) o;
+		return id == petPost.id && Objects.equals(photoUrls, petPost.photoUrls) && Objects.equals(name, petPost.name) && Objects.equals(category, petPost.category) && Objects.equals(tags, petPost.tags) && Objects.equals(status, petPost.status);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(photoUrls, name, id, category, tags, status);
 	}
 }
