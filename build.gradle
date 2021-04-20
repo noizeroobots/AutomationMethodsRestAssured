@@ -10,12 +10,11 @@ repositories {
 }
 
 dependencies {
-    implementation group: 'org.junit.jupiter', name: 'junit-jupiter', version: '5.7.0'
+    implementation group: 'org.junit.jupiter', name: 'junit-jupiter', version:'5.7.0'
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation 'com.squareup.retrofit2:retrofit:converter-jackson:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-jackson:2.9.0'
     implementation 'io.rest-assured:rest-assured:4.3.3'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.1'
-
 }
 
 test {
