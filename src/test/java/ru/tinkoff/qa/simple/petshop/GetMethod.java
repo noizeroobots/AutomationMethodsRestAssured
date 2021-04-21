@@ -16,7 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class GetMethod {
 
     @Test
-    public void pastGet200() {
+    public void postGet200() {
         PetPost myPet = new PetPost();
         myPet.setId(1);
         myPet.setName("Kuzya");
@@ -35,5 +35,9 @@ public class GetMethod {
                 .extract()
                 .as(PetPost.class);
 
+        RestAssured.when()
+                .get("https://petstore.swagger.io/v2/pet/1")
+                .then()
+                .statusCode(200);
     }
 }

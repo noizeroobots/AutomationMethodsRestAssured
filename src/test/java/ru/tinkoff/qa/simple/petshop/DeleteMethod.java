@@ -6,17 +6,20 @@ import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.http.ContentType;
 import io.restassured.internal.common.assertion.Assertion;
+import io.restassured.response.Response;
 import n.Category;
 import n.PetPost;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import static org.hamcrest.CoreMatchers.equalTo;
+
 
 public class DeleteMethod {
 
     @Test
-    public void pastGetDelGet200() {
+    public void postGetDelGet200() {
         PetPost myPet = new PetPost();
         myPet.setId(1);
         myPet.setName("Kuzya");
@@ -34,6 +37,13 @@ public class DeleteMethod {
                 .statusCode(200)
                 .extract()
                 .as(PetPost.class);
+
+
+        RestAssured.when()
+                .get("https://petstore.swagger.io/v2/pet/1")
+                .then()
+                .statusCode(200);
+
 
     }
 }
