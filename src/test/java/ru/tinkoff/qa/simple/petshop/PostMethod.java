@@ -13,10 +13,10 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class JsonSerialisation {
+public class PostMethod {
 
     @Test
-    public void test() {
+    public void pastGet200() {
         PetPost myPet = new PetPost();
         myPet.setId(1);
         myPet.setName("Kuzya");
