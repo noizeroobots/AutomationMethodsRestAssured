@@ -2,6 +2,7 @@ package ru.tinkoff.qa.simple.petshop;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import io.restassured.RestAssured;
+import io.restassured.filter.log.ErrorLoggingFilter;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.http.ContentType;
@@ -49,8 +50,8 @@ public class PutMethod {
                 .get("https://petstore.swagger.io/v2/pet/11")
                 .then()
                 .statusCode(200)
-                .extract()
-                .as(PetPost.class);
+                .assertThat()
+                .body("name",equalTo("Kuzya11"));
     }
 
     @Test
@@ -84,7 +85,7 @@ public class PutMethod {
                 .get("https://petstore.swagger.io/v2/pet/11")
                 .then()
                 .statusCode(200)
-                .extract()
-                .as(PetPost.class);
+                .assertThat()
+                .body("name",equalTo("Kuzya11+1"));
     }
 }
