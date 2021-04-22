@@ -8,12 +8,11 @@ import io.restassured.http.ContentType;
 import io.restassured.internal.common.assertion.Assertion;
 import n.Category;
 import n.PetPost;
+import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.TestMethodOrder;
+import static org.hamcrest.CoreMatchers.equalTo;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 
@@ -37,9 +36,9 @@ public class PutMethod {
                 .post("https://petstore.swagger.io/v2/pet")
                 .then()
                 .statusCode(200)
-                .extract()
-                .as(PetPost.class);
-        System.out.println(myPet2);
+                .assertThat()
+                .body("name",equalTo("Kuzya11"))
+                .body("status",equalTo("available11"));
     }
 
 
@@ -61,8 +60,8 @@ public class PutMethod {
         myChangedPet.setId(11);
         myChangedPet.setName("Kuzya11+1");
         Category categoryChanged = new Category();
-//        myChangedPet.setCategory(categoryChanged);
-//        myChangedPet.setStatus("available11+1");
+        myChangedPet.setCategory(categoryChanged);
+        myChangedPet.setStatus("available11+1");
 
         RestAssured.given()
                 .contentType(ContentType.JSON)
@@ -72,15 +71,15 @@ public class PutMethod {
                 .when()
                 .put("https://petstore.swagger.io/v2/pet")
                 .then()
-                .statusCode(200);
-//                .extract()
-//                .as(PetPost.class);
-        System.out.println(myChangedPet);
+                .statusCode(200)
+                .assertThat()
+                .body("name",equalTo("Kuzya11+1"))
+                .body("status",equalTo("available11+1"));
     }
 
     @Test
     @Order(4)
-    public void getInMethodPut200() {
+    public void secondGetInMethodPut200() {
         RestAssured.when()
                 .get("https://petstore.swagger.io/v2/pet/11")
                 .then()
