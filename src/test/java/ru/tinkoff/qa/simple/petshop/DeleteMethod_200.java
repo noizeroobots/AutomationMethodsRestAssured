@@ -13,15 +13,16 @@ import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import static org.hamcrest.CoreMatchers.equalTo;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 
-public class PutMethod {
+public class DeleteMethod_200 {
 
     @Test
     @Order(1)
-    public void postInMethodPut200() {
+    public void postInMethodDelete200() {
         PetPost myPet2 = new PetPost();
         myPet2.setId(11);
         myPet2.setName("Kuzya11");
@@ -38,54 +39,40 @@ public class PutMethod {
                 .then()
                 .statusCode(200)
                 .assertThat()
-                .body("name",equalTo("Kuzya11"))
-                .body("status",equalTo("available11"));
+                .body("name", equalTo("Kuzya11"))
+                .body("status", equalTo("available11"));
     }
 
 
     @Test
     @Order(2)
-    public void firstGetInMethodPut200() {
+    public void firstGetInMethodDelete200() {
         RestAssured.when()
                 .get("https://petstore.swagger.io/v2/pet/11")
                 .then()
                 .statusCode(200)
                 .assertThat()
-                .body("name",equalTo("Kuzya11"));
+                .body("name", equalTo("Kuzya11"));
     }
 
     @Test
     @Order(3)
-    public void putInMethodPut200() {
-        PetPost myChangedPet = new PetPost();
-        myChangedPet.setId(11);
-        myChangedPet.setName("Kuzya11+1");
-        Category categoryChanged = new Category();
-        myChangedPet.setCategory(categoryChanged);
-        myChangedPet.setStatus("available11+1");
-
-        RestAssured.given()
-                .contentType(ContentType.JSON)
-                .filter(new RequestLoggingFilter())
-                .filter(new ResponseLoggingFilter())
-                .body(myChangedPet)
-                .when()
-                .put("https://petstore.swagger.io/v2/pet")
+    public void delInMethodDelete200() {
+        RestAssured.when()
+                .delete("https://petstore.swagger.io/v2/pet/11")
                 .then()
                 .statusCode(200)
-                .assertThat()
-                .body("name",equalTo("Kuzya11+1"))
-                .body("status",equalTo("available11+1"));
+                .assertThat();
     }
 
     @Test
     @Order(4)
-    public void secondGetInMethodPut200() {
+    public void secondGetInMethodDelete200() {
         RestAssured.when()
                 .get("https://petstore.swagger.io/v2/pet/11")
                 .then()
-                .statusCode(200)
+                .statusCode(404)
                 .assertThat()
-                .body("name",equalTo("Kuzya11+1"));
+                .body("name", equalTo(null));
     }
 }
