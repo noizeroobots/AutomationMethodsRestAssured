@@ -3,72 +3,78 @@ package n;
 import java.util.List;
 import java.util.Objects;
 
-public class PetPost{
-	private List<String> photoUrls;
-	private String name;
-	private int id;
-	private Category category;
-	private List<TagsItem> tags;
-	private String status;
+public class PetPost {
+    private List<String> photoUrls;
+    private String name;
+    private int id;
+    private Category category;
+    private List<TagsItem> tags;
+    private String status;
 
-	public void setPhotoUrls(List<String> photoUrls){
-		this.photoUrls = photoUrls;
-	}
+    public final void setPhotoUrls(final List<String> photoUrls) {
+        this.photoUrls = photoUrls;
+    }
 
-	public List<String> getPhotoUrls(){
-		return photoUrls;
-	}
+    public final List<String> getPhotoUrls() {
+        return photoUrls;
+    }
 
-	public void setName(String name){
-		this.name = name;
-	}
+    public final void setName(final String name) {
+        this.name = name;
+    }
 
-	public String getName(){
-		return name;
-	}
+    public final String getName() {
+        return name;
+    }
 
-	public void setId(int id){
-		this.id = id;
-	}
+    public final void setId(final int id) {
+        this.id = id;
+    }
 
-	public int getId(){
-		return id;
-	}
+    public final int getId() {
+        return id;
+    }
 
-	public void setCategory(Category category){
-		this.category = category;
-	}
+    public final void setCategory(final Category category) {
+        this.category = category;
+    }
 
-	public Category getCategory(){
-		return category;
-	}
+    public final Category getCategory() {
+        return category;
+    }
 
-	public void setTags(List<TagsItem> tags){
-		this.tags = tags;
-	}
+    public final void setTags(final List<TagsItem> tags) {
+        this.tags = tags;
+    }
 
-	public List<TagsItem> getTags(){
-		return tags;
-	}
+    public final List<TagsItem> getTags() {
+        return tags;
+    }
 
-	public void setStatus(String status){
-		this.status = status;
-	}
+    public final void setStatus(final String status) {
+        this.status = status;
+    }
 
-	public String getStatus(){
-		return status;
-	}
+    public final String getStatus() {
+        return status;
+    }
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (!(o instanceof PetPost)) return false;
-		PetPost petPost = (PetPost) o;
-		return id == petPost.id && Objects.equals(photoUrls, petPost.photoUrls) && Objects.equals(name, petPost.name) && Objects.equals(category, petPost.category) && Objects.equals(tags, petPost.tags) && Objects.equals(status, petPost.status);
-	}
+    @Override
+    public final boolean equals(final Object o) {
+        if (this != o) {
+            if (o instanceof PetPost) {
+                PetPost petPost = (PetPost) o;
+                return id == petPost.id && Objects.equals(photoUrls, petPost.photoUrls) && Objects.equals(name, petPost.name) && Objects.equals(category, petPost.category) && Objects.equals(tags, petPost.tags) && Objects.equals(status, petPost.status);
+            } else {
+                return false;
+            }
+        } else {
+            return true;
+        }
+    }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(photoUrls, name, id, category, tags, status);
-	}
+    @Override
+    public final int hashCode() {
+        return Objects.hash(photoUrls, name, id, category, tags, status);
+    }
 }

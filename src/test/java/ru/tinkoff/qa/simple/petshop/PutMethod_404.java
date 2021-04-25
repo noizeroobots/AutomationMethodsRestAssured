@@ -1,19 +1,12 @@
 package ru.tinkoff.qa.simple.petshop;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import io.restassured.RestAssured;
-import io.restassured.filter.log.ErrorLoggingFilter;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.http.ContentType;
-import io.restassured.internal.common.assertion.Assertion;
 import n.Category;
 import n.PetPost;
-import org.hamcrest.Matcher;
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.*;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import static org.hamcrest.CoreMatchers.equalTo;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 
@@ -23,9 +16,9 @@ public class PutMethod_404 {
     @Order(1)
     public void deleteInMethodPut404() {
         RestAssured.when()
-                .delete("https://petstore.swagger.io/v2/pet/11")
+                .delete("https://petstore.swagger.io/v2/pet/20215")
                 .then()
-                .statusCode(200)
+                .statusCode(404)
                 .assertThat();
     }
 
@@ -33,11 +26,11 @@ public class PutMethod_404 {
     @Order(2)
     public void putInMethodPut404() {
         PetPost myChangedPet = new PetPost();
-        myChangedPet.setId(11);
-        myChangedPet.setName("Kuzya11+1");
+        myChangedPet.setId(20215);
+        myChangedPet.setName("Brown Bear");
         Category categoryChanged = new Category();
         myChangedPet.setCategory(categoryChanged);
-        myChangedPet.setStatus("available11+1");
+        myChangedPet.setStatus("jumps");
 
         RestAssured.given()
                 .contentType(ContentType.JSON)
@@ -48,8 +41,6 @@ public class PutMethod_404 {
                 .put("https://petstore.swagger.io/v2/pet")
                 .then()
                 .statusCode(404)
-                .assertThat()
-                .body("name",equalTo("Kuzya11+1"))
-                .body("status",equalTo("available11+1"));
+                .assertThat();
     }
 }
